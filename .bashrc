@@ -16,6 +16,9 @@ shopt -s histappend
 HISTSIZE='INFINITE'
 HISTFILESIZE='AND BEYONDE'
 
+# history time format
+HISTTIMEFORMAT='%F %T: '
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS
 shopt -s checkwinsize
