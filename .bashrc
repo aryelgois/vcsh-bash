@@ -143,3 +143,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Prevent Ubuntu from doing a painstaking search of its package database
+# every time I misspell a command
+if [ -n "$BASH" ]; then
+    unset -f command_not_found_handle
+fi
