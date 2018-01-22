@@ -74,17 +74,27 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Git prompt
+if set | grep __git_ps1 > /dev/null; then
+    GIT_PS1_SHOWDIRTYSTATE=1     # unstaged (*), staged (+)
+    GIT_PS1_SHOWSTASHSTATE=1     # stashed ($)
+    GIT_PS1_SHOWUNTRACKEDFILES=1 # untracked files (%)
+    GIT_PS1_SHOWUPSTREAM="auto"  # behind (<), ahead (>), diverged (<>), no difference (=) between HEAD and its upstream
+    git_prompt=yes
+fi
+
 # Update prompt
 update_PS1 () {
     RET=$?; RET=$([ $RET -gt 0 ] && echo " [$RET] ")
+    [ "$2" = yes ] && GIT_PROMPT="$(__git_ps1 " [%s]")"
     if [ "$1" = yes ]; then
-        PS1='${debian_chroot:+[$debian_chroot]}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]${RET:+\[\033[01;31m\]$RET\[\033[00m\]}\$ '
+        PS1='${debian_chroot:+[$debian_chroot]}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$GIT_PROMPT${RET:+\[\033[01;31m\]$RET\[\033[00m\]}\$ '
     else
-        PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$RET\$ '
+        PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$GIT_PROMPT$RET\$ '
     fi
 }
-PROMPT_COMMAND="update_PS1 '$color_prompt'"
-unset color_prompt force_color_prompt
+PROMPT_COMMAND="update_PS1 '$color_prompt' '$git_prompt'"
+unset color_prompt force_color_prompt git_prompt
 
 # An excellent pager is of the utmost importance to the Unix experience
 export LESS="-i -j.49 -M -R -z-2"
