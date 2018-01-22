@@ -6,6 +6,9 @@ case $- in
       *) return;;
 esac
 
+# Set umask
+umask 022
+
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS
 shopt -s checkwinsize
