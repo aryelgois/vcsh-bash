@@ -60,18 +60,14 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# Force a colored prompt, if the terminal has the capability
-force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
+# Use a colored prompt if the terminal has the capability
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+else
+    color_prompt=
 fi
 
 # Git prompt
@@ -97,7 +93,7 @@ update_PS1 () {
     fi
 }
 PROMPT_COMMAND="update_PS1 '$color_prompt' '$git_prompt'"
-unset color_prompt force_color_prompt git_prompt
+unset color_prompt git_prompt
 
 # An excellent pager is of the utmost importance to the Unix experience
 export LESS="-i -j.49 -M -R -z-2"
