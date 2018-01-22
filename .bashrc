@@ -103,6 +103,23 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Colored diff
+if [ -x /usr/bin/colordiff ]; then DIFF=colordiff; else DIFF=diff; fi
+
+# diff(1) and wdiff(1) shortcuts
+d () {
+    if [ -t 1 ]; then
+        $DIFF -ur "$@" 2>&1 | less
+    else
+        $DIFF -ur "$@"
+    fi
+}
+wd () {
+    diff -u "$@" |
+    wdiff -d -n -w $'\033[31m' -x $'\033[0m' \
+                -y $'\033[32m' -z $'\033[0m'
+}
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
