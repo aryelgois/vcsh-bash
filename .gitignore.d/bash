@@ -1,0 +1,12 @@
+*
+!/.config
+!/.config/mr
+!/.config/mr/available.d
+!/.config/mr/available.d/bash.vcsh
+!/.config/mr/config.d
+!/.config/mr/config.d/bash.vcsh
+!/.gitignore.d
+!/.gitignore.d/bash
+!/.profile
+!/.bashrc
+!/.bash_logout
