@@ -84,7 +84,7 @@ fi
 # Update prompt
 #   $1 use colors    (yes|*)
 #   $2 use __git_ps1 (yes|*)
-update_PS1 () {
+_update_ps1 () {
     RET=$?; RET=$([ $RET -gt 0 ] && echo " ($RET)")
     [ "$2" = yes ] && GIT_PROMPT="$(__git_ps1 " [%s]")"
     SEP=$([ -n "$RET" -o -n "$GIT_PROMPT" ] && echo ' ')
@@ -94,7 +94,7 @@ update_PS1 () {
         PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$GIT_PROMPT$RET$SEP\$ '
     fi
 }
-PROMPT_COMMAND="update_PS1 '$color_prompt' '$git_prompt'"
+PROMPT_COMMAND="_update_ps1 '$color_prompt' '$git_prompt'"
 unset color_prompt git_prompt
 
 # An excellent pager is of the utmost importance to the Unix experience
