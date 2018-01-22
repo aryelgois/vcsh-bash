@@ -81,15 +81,6 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # An excellent pager is of the utmost importance to the Unix experience
 export LESS="-i -j.49 -M -R -z-2"
 export PAGER=less
