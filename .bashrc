@@ -6,27 +6,6 @@ case $- in
       *) return;;
 esac
 
-# Don't put duplicate lines or lines starting with space in the history
-HISTCONTROL=ignoreboth
-
-# Append to the history file, don't overwrite it
-shopt -s histappend
-
-# I want all my history
-HISTSIZE='INFINITE'
-HISTFILESIZE='AND BEYONDE'
-
-# History time format
-HISTTIMEFORMAT='%F %T: '
-
-# Read history
-history -r
-
-# Add history header
-history -s ':'
-history -s ": $(echo -n $'\e[1m')$USER@${HOST:-$HOSTNAME}$(echo -n $'\e[0m')"
-history -s ':'
-
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS
 shopt -s checkwinsize
@@ -44,6 +23,27 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
+
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# Don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# I want all my history
+HISTSIZE='INFINITE'
+HISTFILESIZE='AND BEYONDE'
+
+# History time format
+HISTTIMEFORMAT='%F %T: '
+
+# Read history
+history -r
+
+# Add history header
+history -s ':'
+history -s ": $(echo -n $'\e[1m')$USER@${HOST:-$HOSTNAME}$(echo -n $'\e[0m')"
+history -s ':'
 
 # Display my username and hostname in the xterm titlebar
 if [ "$TERM" = "xterm" ]; then
