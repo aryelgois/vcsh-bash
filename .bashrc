@@ -34,6 +34,10 @@ shopt -s checkwinsize
 # The `**` pattern in a glob should match any number of directories
 shopt -s globstar
 
+# An excellent pager is of the utmost importance to the Unix experience
+export LESS="-i -j.49 -M -R -z-2"
+export PAGER=less
+
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
