@@ -19,6 +19,14 @@ HISTFILESIZE='AND BEYONDE'
 # history time format
 HISTTIMEFORMAT='%F %T: '
 
+# read history
+history -r
+
+# add history header
+history -s ':'
+history -s ": $(echo -n $'\e[1m')$USER@${HOST:-$HOSTNAME}$(echo -n $'\e[0m')"
+history -s ':'
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS
 shopt -s checkwinsize
