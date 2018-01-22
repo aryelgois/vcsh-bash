@@ -95,13 +95,16 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Some more ls aliases
+alias la="ls -AvCF"
+alias lf="ls -vCF"
+alias ll="ls -lvF"
+alias lla="ls -alvF"
+alias ltr="ls -ltr"
+alias ltra="ls -ltra"
+
 # Colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# Some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # Colored diff
 if [ -x /usr/bin/colordiff ]; then DIFF=colordiff; else DIFF=diff; fi
