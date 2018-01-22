@@ -77,6 +77,8 @@ if set | grep __git_ps1 > /dev/null; then
     GIT_PS1_SHOWUNTRACKEDFILES=1 # untracked files (%)
     GIT_PS1_SHOWUPSTREAM="auto"  # behind (<), ahead (>), diverged (<>), no difference (=) between HEAD and its upstream
     git_prompt=yes
+else
+    git_prompt=
 fi
 
 # Update prompt
