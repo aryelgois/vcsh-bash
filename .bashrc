@@ -74,11 +74,16 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+# Update prompt
+update_PS1 () {
+    RET=$?; RET=$([ $RET -gt 0 ] && echo " [$RET] ")
+    if [ "$1" = yes ]; then
+        PS1='${debian_chroot:+[$debian_chroot]}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]${RET:+\[\033[01;31m\]$RET\[\033[00m\]}\$ '
+    else
+        PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$RET\$ '
+    fi
+}
+PROMPT_COMMAND="update_PS1 '$color_prompt'"
 unset color_prompt force_color_prompt
 
 # An excellent pager is of the utmost importance to the Unix experience
