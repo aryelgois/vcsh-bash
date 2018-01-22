@@ -45,6 +45,11 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# Display my username and hostname in the xterm titlebar
+if [ "$TERM" = "xterm" ]; then
+    echo -ne "\033]0;$USER@${HOST:-$HOSTNAME}\007"
+fi
+
 # Set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
