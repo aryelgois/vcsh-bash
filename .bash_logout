@@ -8,4 +8,12 @@ if [ "$SHLVL" = 1 ]; then
         /usr/bin/clear_console -q
     fi
     clear
+    if hash fortune 2> /dev/null; then
+        if hash cowsay 2> /dev/null; then
+            fortune -a | cowsay
+        else
+            fortune -a
+        fi
+        sleep 7
+    fi
 fi
