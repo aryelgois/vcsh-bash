@@ -155,3 +155,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -n "$BASH" ]; then
     unset -f command_not_found_handle
 fi
+
+# Load any site-specific commands that I have defined
+if [ -f "$HOME/.localrc" ]; then
+    . "$HOME/.localrc"
+fi
