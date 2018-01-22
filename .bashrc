@@ -84,13 +84,16 @@ if set | grep __git_ps1 > /dev/null; then
 fi
 
 # Update prompt
+#   $1 use colors    (yes|*)
+#   $2 use __git_ps1 (yes|*)
 update_PS1 () {
-    RET=$?; RET=$([ $RET -gt 0 ] && echo " [$RET] ")
+    RET=$?; RET=$([ $RET -gt 0 ] && echo " ($RET)")
     [ "$2" = yes ] && GIT_PROMPT="$(__git_ps1 " [%s]")"
+    SEP=$([ -n "$RET" -o -n "$GIT_PROMPT" ] && echo ' ')
     if [ "$1" = yes ]; then
-        PS1='${debian_chroot:+[$debian_chroot]}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$GIT_PROMPT${RET:+\[\033[01;31m\]$RET\[\033[00m\]}\$ '
+        PS1='${debian_chroot:+[$debian_chroot]}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$GIT_PROMPT${RET:+\[\033[01;31m\]$RET\[\033[00m\]}$SEP\$ '
     else
-        PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$GIT_PROMPT$RET\$ '
+        PS1='${debian_chroot:+[$debian_chroot]}\u@\h:\w$GIT_PROMPT$RET$SEP\$ '
     fi
 }
 PROMPT_COMMAND="update_PS1 '$color_prompt' '$git_prompt'"
