@@ -106,7 +106,7 @@ export PAGER=less
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Enable color support of ls and also add handy aliases
+# Enable color support of ls(1) and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -118,7 +118,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Some more ls aliases
+# Some more ls(1) aliases
 alias la="ls -AvCF"
 alias lf="ls -vCF"
 alias ll="ls -lvF"
