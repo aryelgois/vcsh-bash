@@ -34,13 +34,6 @@ shopt -s checkwinsize
 # The `**` pattern in a glob should match any number of directories
 shopt -s globstar
 
-# An excellent pager is of the utmost importance to the Unix experience
-export LESS="-i -j.49 -M -R -z-2"
-export PAGER=less
-
-# Make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # Set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -82,6 +75,13 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+# An excellent pager is of the utmost importance to the Unix experience
+export LESS="-i -j.49 -M -R -z-2"
+export PAGER=less
+
+# Make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
