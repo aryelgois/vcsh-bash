@@ -1,5 +1,8 @@
 # Executed by the command interpreter for login shells
 
+# Set umask
+umask 022
+
 # If running bash
 if [ -n "$BASH_VERSION" ]; then
     # Include .bashrc if it exists
