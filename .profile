@@ -15,4 +15,4 @@ fi
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # n (Node version management)
-export N_PREFIX=$HOME/.local
+export N_PREFIX="$HOME/.local"
