@@ -155,8 +155,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Load any site-specific commands that I have defined
-if [ -f "$HOME/.localrc" ]; then
-    . "$HOME/.localrc"
+if [ -f ~/.localrc ]; then
+    . ~/.localrc
 fi
 
 # Prevent Ubuntu from doing a painstaking search of its package database
