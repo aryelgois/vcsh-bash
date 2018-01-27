@@ -43,6 +43,7 @@ history -r
 # Add history header
 history -s ':'
 history -s ": $(echo -n $'\e[1m')$USER@${HOST:-$HOSTNAME}$(echo -n $'\e[0m')"
+[ "$PWD" = "$HOME" ] || history -s ": $PWD"
 history -s ':'
 
 # Display my username and hostname in the xterm titlebar
