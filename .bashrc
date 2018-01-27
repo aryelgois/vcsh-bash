@@ -154,13 +154,13 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Load any site-specific commands that I have defined
+if [ -f "$HOME/.localrc" ]; then
+    . "$HOME/.localrc"
+fi
+
 # Prevent Ubuntu from doing a painstaking search of its package database
 # every time I misspell a command
 if [ -n "$BASH" ]; then
     unset -f command_not_found_handle
-fi
-
-# Load any site-specific commands that I have defined
-if [ -f "$HOME/.localrc" ]; then
-    . "$HOME/.localrc"
 fi
