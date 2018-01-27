@@ -149,6 +149,11 @@ wd () {
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Load External Alias definitions
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 # Prevent Ubuntu from doing a painstaking search of its package database
 # every time I misspell a command
 if [ -n "$BASH" ]; then
