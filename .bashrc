@@ -37,8 +37,14 @@ HISTFILESIZE='AND BEYONDE'
 # History time format
 HISTTIMEFORMAT='%F %T: '
 
-# Read history
+# Read global history
 history -r
+
+# Each shell has its own history file, from the current time
+HISTDIR="$HOME/.bash_history.d/$(date +%Y-%m-%d)"
+HISTFILE="$HISTDIR/$(date +%s.%N)"
+[ -d "$HISTDIR" ] || mkdir -p "$HISTDIR"
+unset HISTDIR
 
 # Add history header
 history -s ':'
@@ -164,3 +170,6 @@ fi
 if [ -n "$BASH" ]; then
     unset -f command_not_found_handle
 fi
+
+# Make writing to history file immediate
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
