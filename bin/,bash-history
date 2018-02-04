@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Automatic concatenating and committing bash-history
+#   $1 Date to commit
+
+# helper functions
+colored () {
+    echo $'\033['"${2:-1}m$1"$'\033[0m'
+}
+
+alert () {
+    local icon="$([[ $2 = 'critical' ]] && echo error || echo terminal)"
+    notify-send --urgency="${2:-normal}" -i "$icon" "$1"
+}
+
+error_out () {
+    if [[ -t 1 ]]; then
+        >&2 colored "$1" '97;41'
+    else
+        alert "$1" 'critical'
+    fi
+    exit
+}
+
+# Set $HISTDIR
+HISTDIR="$HOME/.bash_history.d"
+if [[ $# -eq 0 ]]; then
+    HISTDIR="$HISTDIR/$(date +%Y-%m-%d)"
+else
+    HISTDIR="$HISTDIR/$1"
+fi
+
+# Check
+if [[ ! -d $HISTDIR ]]; then
+    error_out 'E: History directory not found'
+fi
+
+if find "$HISTDIR" -mindepth 1 | read; then
+    :
+else
+    error_out 'E: No files to commit'
+fi
+
+# Loop files and append to main history; remove files
+FILES="$HISTDIR/*"
+for FILE in ${FILES[@]}; do
+    [[ ! -f $FILE ]] && continue
+    cat "$FILE" >> ~/.bash_history
+    rm "$FILE"
+done
+
+# Automatic commit
+MESSAGE="Add $(basename "$HISTDIR")"
+vcsh bash-history add ~/.bash_history
+vcsh bash-history commit -m "$MESSAGE"
+
+# Output
+COMMIT="$(vcsh bash-history log --pretty=format:'%h' -1)"
+if [[ -t 1 ]]; then
+    echo "$(colored "$COMMIT" '33') $MESSAGE"
+else
+    alert "$COMMIT $MESSAGE"
+fi

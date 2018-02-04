@@ -10,4 +10,6 @@
 !/.profile
 !/.bashrc
 !/.bash_logout
+!/bin
+!/bin/,bash-history
 /.localrc
