@@ -1,19 +1,32 @@
 # Executed by bash(1) when login shell exits
 
+# helper function
+colored () {
+    echo $'\033['"${2:-1}m$1"$'\033[0m'
+}
+
 # When leaving the console, clear the screen to increase privacy
 if [ "$SHLVL" = 1 ]; then
-    if hash tput 2> /dev/null; then
-        tput reset
-    elif [ -x /usr/bin/clear_console ]; then
-        /usr/bin/clear_console -q
-    fi
-    clear
     if hash fortune 2> /dev/null; then
         if hash cowsay 2> /dev/null; then
             fortune -a | cowsay
         else
             fortune -a
         fi
-        sleep 7
     fi
+
+    echo
+    echo
+    read -p "Would you like to clear ALL the screen [$(colored 'y/N' 33)]? " ASK
+
+    case "$ASK" in
+    y|Y|yes)
+        if hash tput 2> /dev/null; then
+            tput reset
+        elif [ -x /usr/bin/clear_console ]; then
+            /usr/bin/clear_console -q
+        fi
+        clear
+        ;;
+    esac
 fi
